@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Search, Filter, Grid, List, Terminal, Play } from 'lucide-react';
+import { Search, Filter, Grid, List, Terminal, Play, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ToolRunner } from '@/components/tools/ToolRunner';
+import { toolsDatabase, categories } from '@/data/tools';
 
 const toolCategories = [
   {
@@ -46,6 +48,7 @@ export default function ToolsHub() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [runningTools, setRunningTools] = useState<any[]>([]);
 
   const getStatusColor = (status: string) => {
     switch (status) {

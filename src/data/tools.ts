@@ -1,0 +1,380 @@
+export interface Tool {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  subcategory: string;
+  command: string;
+  parameters?: string[];
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  tags: string[];
+  icon?: string;
+}
+
+export const toolsDatabase: Tool[] = [
+  // OSINT Tools
+  {
+    id: 'sherlock',
+    name: 'Sherlock',
+    description: 'Hunt down social media accounts by username across social networks',
+    category: 'OSINT',
+    subcategory: 'Social Media',
+    command: 'sherlock username',
+    difficulty: 'beginner',
+    tags: ['social-media', 'username', 'search'],
+  },
+  {
+    id: 'theharvester',
+    name: 'theHarvester',
+    description: 'Gather emails, subdomains, hosts, employee names, open ports and banners',
+    category: 'OSINT',
+    subcategory: 'Email & Domains',
+    command: 'theHarvester -d domain.com -b google',
+    difficulty: 'beginner',
+    tags: ['email', 'domains', 'reconnaissance'],
+  },
+  {
+    id: 'maltego',
+    name: 'Maltego',
+    description: 'Interactive data mining tool for gathering and connecting information',
+    category: 'OSINT',
+    subcategory: 'Data Mining',
+    command: 'maltego',
+    difficulty: 'intermediate',
+    tags: ['graphical', 'investigation', 'data-mining'],
+  },
+  {
+    id: 'recon-ng',
+    name: 'Recon-ng',
+    description: 'Full-featured reconnaissance framework with independent modules',
+    category: 'OSINT',
+    subcategory: 'Framework',
+    command: 'recon-ng',
+    difficulty: 'intermediate',
+    tags: ['framework', 'modules', 'reconnaissance'],
+  },
+  {
+    id: 'shodan-cli',
+    name: 'Shodan CLI',
+    description: 'Search engine for Internet-connected devices',
+    category: 'OSINT',
+    subcategory: 'IoT & Devices',
+    command: 'shodan search apache',
+    difficulty: 'beginner',
+    tags: ['iot', 'devices', 'search-engine'],
+  },
+
+  // Network Scanning
+  {
+    id: 'nmap',
+    name: 'Nmap',
+    description: 'Network discovery and security auditing tool',
+    category: 'Network Scanning',
+    subcategory: 'Port Scanning',
+    command: 'nmap -sV -sC target.com',
+    difficulty: 'beginner',
+    tags: ['port-scan', 'service-detection', 'network'],
+  },
+  {
+    id: 'masscan',
+    name: 'Masscan',
+    description: 'High-speed port scanner, like Nmap but faster',
+    category: 'Network Scanning',
+    subcategory: 'Port Scanning',
+    command: 'masscan -p1-65535 10.0.0.0/8 --rate=1000',
+    difficulty: 'intermediate',
+    tags: ['fast-scan', 'port-scan', 'high-speed'],
+  },
+  {
+    id: 'netdiscover',
+    name: 'Netdiscover',
+    description: 'Active/passive ARP reconnaissance tool',
+    category: 'Network Scanning',
+    subcategory: 'Network Discovery',
+    command: 'netdiscover -r 192.168.1.0/24',
+    difficulty: 'beginner',
+    tags: ['arp', 'network-discovery', 'reconnaissance'],
+  },
+
+  // Web Application Testing
+  {
+    id: 'burp-suite',
+    name: 'Burp Suite',
+    description: 'Integrated platform for web application security testing',
+    category: 'Web Hacking',
+    subcategory: 'Proxy & Testing',
+    command: 'burpsuite',
+    difficulty: 'intermediate',
+    tags: ['proxy', 'web-app', 'testing'],
+  },
+  {
+    id: 'owasp-zap',
+    name: 'OWASP ZAP',
+    description: 'Free security tool for finding vulnerabilities in web applications',
+    category: 'Web Hacking',
+    subcategory: 'Vulnerability Scanner',
+    command: 'zaproxy',
+    difficulty: 'beginner',
+    tags: ['vulnerability-scanner', 'web-app', 'owasp'],
+  },
+  {
+    id: 'sqlmap',
+    name: 'SQLMap',
+    description: 'Automatic SQL injection and database takeover tool',
+    category: 'Web Hacking',
+    subcategory: 'SQL Injection',
+    command: 'sqlmap -u "http://target.com/page?id=1"',
+    difficulty: 'intermediate',
+    tags: ['sql-injection', 'database', 'exploitation'],
+  },
+  {
+    id: 'nikto',
+    name: 'Nikto',
+    description: 'Web server scanner for dangerous files and programs',
+    category: 'Web Hacking',
+    subcategory: 'Web Scanner',
+    command: 'nikto -h http://target.com',
+    difficulty: 'beginner',
+    tags: ['web-scanner', 'vulnerability', 'server'],
+  },
+  {
+    id: 'dirb',
+    name: 'Dirb',
+    description: 'Web content scanner for hidden files and directories',
+    category: 'Web Hacking',
+    subcategory: 'Directory Bruteforce',
+    command: 'dirb http://target.com',
+    difficulty: 'beginner',
+    tags: ['directory-scan', 'bruteforce', 'web'],
+  },
+  {
+    id: 'gobuster',
+    name: 'Gobuster',
+    description: 'Fast directory/file brute-forcer written in Go',
+    category: 'Web Hacking',
+    subcategory: 'Directory Bruteforce',
+    command: 'gobuster dir -u http://target.com -w /usr/share/wordlists/common.txt',
+    difficulty: 'beginner',
+    tags: ['bruteforce', 'directory-scan', 'fast'],
+  },
+
+  // Exploitation Tools
+  {
+    id: 'metasploit',
+    name: 'Metasploit Framework',
+    description: 'Penetration testing framework for developing and executing exploits',
+    category: 'Exploitation',
+    subcategory: 'Framework',
+    command: 'msfconsole',
+    difficulty: 'advanced',
+    tags: ['framework', 'exploits', 'payloads'],
+  },
+  {
+    id: 'searchsploit',
+    name: 'Searchsploit',
+    description: 'Command line search tool for Exploit Database',
+    category: 'Exploitation',
+    subcategory: 'Exploit Search',
+    command: 'searchsploit apache 2.4',
+    difficulty: 'beginner',
+    tags: ['exploit-db', 'search', 'vulnerabilities'],
+  },
+  {
+    id: 'beef',
+    name: 'BeEF',
+    description: 'Browser Exploitation Framework for client-side attacks',
+    category: 'Exploitation',
+    subcategory: 'Browser Exploitation',
+    command: 'beef-xss',
+    difficulty: 'advanced',
+    tags: ['browser', 'client-side', 'xss'],
+  },
+
+  // Password Attacks
+  {
+    id: 'john',
+    name: 'John the Ripper',
+    description: 'Fast password cracker with support for many hash types',
+    category: 'Password Attacks',
+    subcategory: 'Hash Cracking',
+    command: 'john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt',
+    difficulty: 'intermediate',
+    tags: ['hash-cracking', 'password', 'bruteforce'],
+  },
+  {
+    id: 'hashcat',
+    name: 'Hashcat',
+    description: 'Advanced password recovery using GPU acceleration',
+    category: 'Password Attacks',
+    subcategory: 'Hash Cracking',
+    command: 'hashcat -m 0 -a 0 hashes.txt wordlist.txt',
+    difficulty: 'advanced',
+    tags: ['gpu', 'hash-cracking', 'advanced'],
+  },
+  {
+    id: 'hydra',
+    name: 'Hydra',
+    description: 'Fast network logon cracker for various protocols',
+    category: 'Password Attacks',
+    subcategory: 'Network Bruteforce',
+    command: 'hydra -l admin -P passwords.txt target.com ssh',
+    difficulty: 'intermediate',
+    tags: ['network', 'bruteforce', 'protocols'],
+  },
+  {
+    id: 'medusa',
+    name: 'Medusa',
+    description: 'Speedy, parallel, and modular login brute-forcer',
+    category: 'Password Attacks',
+    subcategory: 'Network Bruteforce',
+    command: 'medusa -h target.com -u admin -P passwords.txt -M ssh',
+    difficulty: 'intermediate',
+    tags: ['parallel', 'bruteforce', 'modular'],
+  },
+
+  // Wireless Attacks
+  {
+    id: 'aircrack-ng',
+    name: 'Aircrack-ng Suite',
+    description: 'Complete suite for auditing wireless networks',
+    category: 'Wireless',
+    subcategory: 'WiFi Auditing',
+    command: 'aircrack-ng capture.cap',
+    difficulty: 'intermediate',
+    tags: ['wifi', 'wireless', 'auditing'],
+  },
+  {
+    id: 'wifite',
+    name: 'Wifite',
+    description: 'Automated wireless attack tool',
+    category: 'Wireless',
+    subcategory: 'WiFi Auditing',
+    command: 'wifite',
+    difficulty: 'beginner',
+    tags: ['automated', 'wifi', 'attack'],
+  },
+  {
+    id: 'reaver',
+    name: 'Reaver',
+    description: 'Brute force attack against WPS (WiFi Protected Setup)',
+    category: 'Wireless',
+    subcategory: 'WPS Attack',
+    command: 'reaver -i wlan0mon -b [BSSID] -vv',
+    difficulty: 'intermediate',
+    tags: ['wps', 'bruteforce', 'wifi'],
+  },
+
+  // Sniffing & Spoofing
+  {
+    id: 'wireshark',
+    name: 'Wireshark',
+    description: 'Network protocol analyzer for troubleshooting and analysis',
+    category: 'Sniffing',
+    subcategory: 'Packet Analysis',
+    command: 'wireshark',
+    difficulty: 'intermediate',
+    tags: ['packet-analysis', 'network', 'gui'],
+  },
+  {
+    id: 'ettercap',
+    name: 'Ettercap',
+    description: 'Comprehensive suite for MITM attacks on LAN',
+    category: 'Sniffing',
+    subcategory: 'MITM',
+    command: 'ettercap -T -q -M arp:remote /192.168.1.1// /192.168.1.100//',
+    difficulty: 'advanced',
+    tags: ['mitm', 'arp-spoofing', 'lan'],
+  },
+  {
+    id: 'bettercap',
+    name: 'Bettercap',
+    description: 'Swiss army knife for network attacks and monitoring',
+    category: 'Sniffing',
+    subcategory: 'Network Attacks',
+    command: 'bettercap -iface eth0',
+    difficulty: 'advanced',
+    tags: ['network-attacks', 'modern', 'monitoring'],
+  },
+
+  // Forensics
+  {
+    id: 'volatility',
+    name: 'Volatility',
+    description: 'Advanced memory forensics framework',
+    category: 'Forensics',
+    subcategory: 'Memory Analysis',
+    command: 'volatility -f memory.raw imageinfo',
+    difficulty: 'advanced',
+    tags: ['memory-forensics', 'analysis', 'investigation'],
+  },
+  {
+    id: 'autopsy',
+    name: 'Autopsy',
+    description: 'Digital forensics platform for investigating hard drives',
+    category: 'Forensics',
+    subcategory: 'Disk Analysis',
+    command: 'autopsy',
+    difficulty: 'intermediate',
+    tags: ['disk-forensics', 'gui', 'investigation'],
+  },
+
+  // Social Engineering
+  {
+    id: 'set',
+    name: 'Social Engineering Toolkit',
+    description: 'Framework for social engineering attacks',
+    category: 'Social Engineering',
+    subcategory: 'Framework',
+    command: 'setoolkit',
+    difficulty: 'intermediate',
+    tags: ['social-engineering', 'phishing', 'framework'],
+  },
+
+  // Reverse Engineering
+  {
+    id: 'ghidra',
+    name: 'Ghidra',
+    description: 'NSA software reverse engineering framework',
+    category: 'Reverse Engineering',
+    subcategory: 'Static Analysis',
+    command: 'ghidra',
+    difficulty: 'advanced',
+    tags: ['reverse-engineering', 'static-analysis', 'nsa'],
+  },
+  {
+    id: 'radare2',
+    name: 'Radare2',
+    description: 'Unix-like reverse engineering framework',
+    category: 'Reverse Engineering',
+    subcategory: 'Framework',
+    command: 'radare2 binary',
+    difficulty: 'advanced',
+    tags: ['reverse-engineering', 'framework', 'analysis'],
+  }
+];
+
+export const categories = [
+  'OSINT',
+  'Network Scanning', 
+  'Web Hacking',
+  'Exploitation',
+  'Password Attacks',
+  'Wireless',
+  'Sniffing',
+  'Forensics',
+  'Social Engineering',
+  'Reverse Engineering'
+];
+
+export const subcategories: Record<string, string[]> = {
+  'OSINT': ['Social Media', 'Email & Domains', 'Data Mining', 'Framework', 'IoT & Devices'],
+  'Network Scanning': ['Port Scanning', 'Network Discovery', 'Service Detection'],
+  'Web Hacking': ['Proxy & Testing', 'Vulnerability Scanner', 'SQL Injection', 'Web Scanner', 'Directory Bruteforce'],
+  'Exploitation': ['Framework', 'Exploit Search', 'Browser Exploitation'],
+  'Password Attacks': ['Hash Cracking', 'Network Bruteforce'],
+  'Wireless': ['WiFi Auditing', 'WPS Attack', 'Bluetooth'],
+  'Sniffing': ['Packet Analysis', 'MITM', 'Network Attacks'],
+  'Forensics': ['Memory Analysis', 'Disk Analysis', 'Network Forensics'],
+  'Social Engineering': ['Framework', 'Phishing', 'Information Gathering'],
+  'Reverse Engineering': ['Static Analysis', 'Dynamic Analysis', 'Framework']
+};

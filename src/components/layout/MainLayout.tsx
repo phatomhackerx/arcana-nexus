@@ -4,6 +4,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { MainSidebar } from './MainSidebar';
 import { AIAssistant } from '../ai/AIAssistant';
 import { FloatingTerminal } from '../terminal/FloatingTerminal';
+import { StatusBar } from './StatusBar';
 
 export function MainLayout() {
   const [isAIOpen, setIsAIOpen] = useState(false);
@@ -32,6 +33,9 @@ export function MainLayout() {
             />
           )}
         </div>
+        
+        {/* Status Bar */}
+        <StatusBar />
       </div>
     </SidebarProvider>
   );

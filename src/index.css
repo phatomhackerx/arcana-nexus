@@ -2,58 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-/* PhantomSEC Design System - Modern Hacker Platform */
+/* PhantomSEC Design System - Linear.app Inspired B&W */
 
 @layer base {
   :root {
-    /* Core Background & Text */
-    --background: 220 13% 4%;
-    --foreground: 210 40% 98%;
+    /* Core Background & Text - Linear.app style */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
     
-    /* Cards & Surfaces */
-    --card: 220 13% 6%;
-    --card-foreground: 210 40% 95%;
-    --card-glass: 220 13% 8%;
+    /* Cards & Surfaces - Minimal B&W */
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 95%;
+    --card-glass: 0 0% 7%;
     
-    /* Interactive Elements */
-    --popover: 220 13% 7%;
-    --popover-foreground: 210 40% 95%;
+    /* Interactive Elements - Linear.app style */
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
     
-    /* Primary Brand Colors */
-    --primary: 263 83% 58%;
-    --primary-foreground: 210 40% 98%;
-    --primary-glow: 263 83% 68%;
+    /* Primary Brand Colors - Minimal B&W */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 8%;
+    --primary-glow: 0 0% 88%;
     
-    /* Secondary Accent */
-    --secondary: 220 13% 12%;
-    --secondary-foreground: 210 40% 90%;
-    --secondary-hover: 220 13% 15%;
+    /* Secondary Accent - Compact */
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 90%;
+    --secondary-hover: 0 0% 12%;
     
-    /* Muted Elements */
-    --muted: 220 13% 10%;
-    --muted-foreground: 215 20% 65%;
+    /* Muted Elements - Minimal */
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 60%;
     
-    /* Accent Highlights */
-    --accent: 263 83% 58%;
-    --accent-foreground: 210 40% 98%;
-    --accent-secondary: 280 100% 70%;
+    /* Accent Highlights - Subtle */
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+    --accent-secondary: 0 0% 20%;
     
-    /* Status Colors */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --success: 142 71% 45%;
-    --warning: 38 92% 50%;
+    /* Status Colors - Minimal */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 120 50% 45%;
+    --warning: 45 90% 50%;
     
-    /* Borders & Inputs */
-    --border: 220 13% 20%;
-    --border-hover: 263 83% 58%;
-    --input: 220 13% 12%;
-    --ring: 263 83% 58%;
+    /* Borders & Inputs - Linear.app minimal */
+    --border: 0 0% 15%;
+    --border-hover: 0 0% 25%;
+    --input: 0 0% 8%;
+    --ring: 0 0% 30%;
     
-    /* Glass Effects */
-    --glass-bg: 220 13% 8% / 0.8;
-    --glass-border: 220 13% 25% / 0.3;
-    --glass-shadow: 220 13% 0% / 0.5;
+    /* Glass Effects - Minimal */
+    --glass-bg: 0 0% 5% / 0.9;
+    --glass-border: 0 0% 20% / 0.2;
+    --glass-shadow: 0 0% 0% / 0.3;
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(263 83% 58%), hsl(280 100% 70%));

@@ -10,6 +10,7 @@ import ToolsHub from "./pages/ToolsHub";
 import AIPage from "./pages/AIPage";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import ProjectWorkspacePage from "./pages/ProjectWorkspace";
 
 const queryClient = new QueryClient();
 
