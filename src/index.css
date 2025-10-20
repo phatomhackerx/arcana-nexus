@@ -2,69 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* PhantomSEC Design System - Linear.app Inspired B&W */
+/* PhantomSEC Design System - Grok.com Inspired Dark Red */
 
 @layer base {
   :root {
-    /* Core Background & Text - Linear.app style */
-    --background: 0 0% 3%;
+    /* Core Background & Text - Deep Black */
+    --background: 0 0% 2%;
     --foreground: 0 0% 98%;
     
-    /* Cards & Surfaces - Minimal B&W */
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 95%;
-    --card-glass: 0 0% 7%;
+    /* Cards & Surfaces - Dark with subtle red tint */
+    --card: 0 5% 4%;
+    --card-foreground: 0 0% 96%;
+    --card-glass: 0 5% 6%;
     
-    /* Interactive Elements - Linear.app style */
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 95%;
+    /* Interactive Elements - Dark */
+    --popover: 0 5% 5%;
+    --popover-foreground: 0 0% 96%;
     
-    /* Primary Brand Colors - Minimal B&W */
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 8%;
-    --primary-glow: 0 0% 88%;
+    /* Primary Brand Colors - Vibrant Red */
+    --primary: 0 84% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 0 84% 65%;
     
-    /* Secondary Accent - Compact */
-    --secondary: 0 0% 8%;
-    --secondary-foreground: 0 0% 90%;
-    --secondary-hover: 0 0% 12%;
+    /* Secondary Accent - Deep Red */
+    --secondary: 0 5% 10%;
+    --secondary-foreground: 0 0% 92%;
+    --secondary-hover: 0 10% 14%;
     
-    /* Muted Elements - Minimal */
-    --muted: 0 0% 9%;
-    --muted-foreground: 0 0% 60%;
+    /* Muted Elements - Dark Gray */
+    --muted: 0 3% 12%;
+    --muted-foreground: 0 0% 55%;
     
-    /* Accent Highlights - Subtle */
-    --accent: 0 0% 15%;
+    /* Accent Highlights - Red Tint */
+    --accent: 0 8% 16%;
     --accent-foreground: 0 0% 98%;
-    --accent-secondary: 0 0% 20%;
+    --accent-secondary: 0 12% 20%;
     
-    /* Status Colors - Minimal */
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 98%;
-    --success: 120 50% 45%;
-    --warning: 45 90% 50%;
+    /* Status Colors */
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 71% 45%;
+    --warning: 38 92% 50%;
     
-    /* Borders & Inputs - Linear.app minimal */
-    --border: 0 0% 15%;
-    --border-hover: 0 0% 25%;
-    --input: 0 0% 8%;
-    --ring: 0 0% 30%;
+    /* Borders & Inputs - Subtle Red */
+    --border: 0 8% 18%;
+    --border-hover: 0 15% 25%;
+    --input: 0 5% 8%;
+    --ring: 0 84% 55%;
     
-    /* Glass Effects - Minimal */
-    --glass-bg: 0 0% 5% / 0.9;
-    --glass-border: 0 0% 20% / 0.2;
-    --glass-shadow: 0 0% 0% / 0.3;
+    /* Glass Effects - Dark Red Tint */
+    --glass-bg: 0 5% 4% / 0.85;
+    --glass-border: 0 15% 22% / 0.3;
+    --glass-shadow: 0 0% 0% / 0.5;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(263 83% 58%), hsl(280 100% 70%));
-    --gradient-surface: linear-gradient(135deg, hsl(220 13% 6%), hsl(220 13% 8%));
-    --gradient-glow: radial-gradient(circle, hsl(263 83% 58% / 0.2), transparent);
+    /* Gradients - Red themed */
+    --gradient-primary: linear-gradient(135deg, hsl(0 84% 55%), hsl(350 90% 60%));
+    --gradient-surface: linear-gradient(135deg, hsl(0 5% 3%), hsl(0 5% 6%));
+    --gradient-glow: radial-gradient(circle, hsl(0 84% 55% / 0.15), transparent);
     
-    /* Shadows */
-    --shadow-sm: 0 2px 8px hsl(220 13% 0% / 0.1);
-    --shadow-md: 0 8px 25px hsl(220 13% 0% / 0.2);
-    --shadow-lg: 0 20px 40px hsl(220 13% 0% / 0.3);
-    --shadow-glow: 0 0 30px hsl(263 83% 58% / 0.3);
+    /* Shadows - Red glow */
+    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.2);
+    --shadow-md: 0 8px 25px hsl(0 0% 0% / 0.3);
+    --shadow-lg: 0 20px 40px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 40px hsl(0 84% 55% / 0.25);
     
     /* Animations */
     --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
