@@ -1,73 +1,24 @@
 import { useState } from 'react';
-import { Search, Filter, Grid, List, Terminal, Play, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Filter, Grid, List, Terminal, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ToolRunner } from '@/components/tools/ToolRunner';
 import { toolsDatabase, categories } from '@/data/tools';
 
-const toolCategories = [
-  {
-    id: 'osint',
-    name: 'OSINT & Intelligence',
-    description: 'Open Source Intelligence gathering tools',
-    tools: [
-      { name: 'Sherlock', category: 'Social Media', description: 'Find usernames across social networks', status: 'Available' },
-      { name: 'theHarvester', category: 'Email/Domain', description: 'Gather emails, subdomains, hosts', status: 'Available' },
-      { name: 'Maltego', category: 'Link Analysis', description: 'Interactive data mining platform', status: 'Pro' },
-      { name: 'Shodan', category: 'Device Search', description: 'Search engine for internet devices', status: 'API' }
-    ]
-  },
-  {
-    id: 'web',
-    name: 'Web Application Security',
-    description: 'Tools for testing web applications',
-    tools: [
-      { name: 'Burp Suite', category: 'Proxy/Scanner', description: 'Web vulnerability scanner', status: 'Available' },
-      { name: 'OWASP ZAP', category: 'Proxy/Scanner', description: 'Free security testing proxy', status: 'Available' },
-      { name: 'SQLMap', category: 'SQL Injection', description: 'Automatic SQL injection tool', status: 'Available' },
-      { name: 'Nikto', category: 'Web Scanner', description: 'Web server scanner', status: 'Available' }
-    ]
-  },
-  {
-    id: 'network',
-    name: 'Network Security',
-    description: 'Network analysis and exploitation tools',
-    tools: [
-      { name: 'Nmap', category: 'Port Scanner', description: 'Network discovery and security auditing', status: 'Available' },
-      { name: 'Metasploit', category: 'Exploitation', description: 'Penetration testing framework', status: 'Available' },
-      { name: 'Wireshark', category: 'Packet Analysis', description: 'Network protocol analyzer', status: 'Available' },
-      { name: 'Masscan', category: 'Port Scanner', description: 'Fast port scanner', status: 'Available' }
-    ]
-  }
-];
-
 export default function ToolsHub() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [runningTools, setRunningTools] = useState<any[]>([]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Available': return 'bg-green-500';
-      case 'Pro': return 'bg-blue-500';
-      case 'API': return 'bg-purple-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const allTools = toolCategories.flatMap(category => 
-    category.tools.map(tool => ({ ...tool, categoryName: category.name }))
-  );
-
-  const filteredTools = allTools.filter(tool => {
+  const filteredTools = toolsDatabase.filter(tool => {
     const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         tool.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || 
-                           tool.categoryName.toLowerCase().includes(selectedCategory);
+                         tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         tool.tags.some(tag => tag.includes(searchTerm.toLowerCase()));
+    const matchesCategory = selectedCategory === 'all' || tool.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -121,117 +72,81 @@ export default function ToolsHub() {
       </div>
 
       {/* Tool Categories */}
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All Tools</TabsTrigger>
-          <TabsTrigger value="osint">OSINT</TabsTrigger>
-          <TabsTrigger value="web">Web Security</TabsTrigger>
-          <TabsTrigger value="network">Network</TabsTrigger>
+      <Tabs defaultValue="all" className="w-full" onValueChange={setSelectedCategory}>
+        <TabsList className="grid w-full grid-cols-4 sm:grid-cols-6 lg:grid-cols-11 h-auto">
+          <TabsTrigger value="all" className="text-xs px-2 py-2">All</TabsTrigger>
+          {categories.map(cat => (
+            <TabsTrigger key={cat} value={cat} className="text-xs px-2 py-2">
+              {cat}
+            </TabsTrigger>
+          ))}
         </TabsList>
 
-        <TabsContent value="all" className="space-y-6">
-          <div className={`grid gap-6 ${
+        <TabsContent value={selectedCategory} className="space-y-6 mt-6">
+          <div className={`grid gap-4 sm:gap-6 ${
             viewMode === 'grid' 
-              ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
               : 'grid-cols-1'
           }`}>
-            {filteredTools.map((tool, index) => (
-              <Card key={`${tool.name}-${index}`} className="glass-card hover-lift cursor-pointer group">
+            {filteredTools.map((tool) => (
+              <Card 
+                key={tool.id} 
+                className="glass-card hover-lift cursor-pointer group border border-border hover:border-primary/50 transition-all"
+                onClick={() => navigate(`/tools/${tool.id}`)}
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <div className="space-y-1">
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                    <div className="space-y-1 flex-1 min-w-0">
+                      <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors truncate">
                         {tool.name}
                       </CardTitle>
-                      <CardDescription className="flex items-center space-x-2">
-                        <span>{tool.category}</span>
-                        <Badge variant="secondary">
-                          {tool.categoryName}
+                      <CardDescription className="flex flex-wrap items-center gap-2 text-xs">
+                        <Badge variant="secondary" className="text-xs">
+                          {tool.subcategory}
+                        </Badge>
+                        <Badge 
+                          variant="outline" 
+                          className={`text-xs ${
+                            tool.difficulty === 'beginner' ? 'border-success text-success' :
+                            tool.difficulty === 'intermediate' ? 'border-warning text-warning' :
+                            'border-destructive text-destructive'
+                          }`}
+                        >
+                          {tool.difficulty}
                         </Badge>
                       </CardDescription>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className={`w-3 h-3 rounded-full ${getStatusColor(tool.status)}`} />
-                      <span className="text-xs text-muted-foreground">{tool.status}</span>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground">{tool.description}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
+                    {tool.description}
+                  </p>
                   
-                  <div className="flex items-center justify-between">
-                    <div className="flex space-x-2">
-                      <Button size="sm" className="hover-glow">
-                        <Play className="w-3 h-3 mr-1" />
-                        Launch
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Info
-                      </Button>
-                    </div>
-                    <Button variant="ghost" size="sm">
-                      ⭐
-                    </Button>
+                  <div className="flex flex-wrap gap-1">
+                    {tool.tags.slice(0, 3).map(tag => (
+                      <Badge key={tag} variant="outline" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
                   </div>
+
+                  <Button size="sm" className="w-full group-hover:shadow-glow">
+                    <Play className="w-3 h-3 mr-2" />
+                    Launch
+                  </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </TabsContent>
 
-        {toolCategories.map((category) => (
-          <TabsContent key={category.id} value={category.id} className="space-y-6">
-            <Card className="glass-card">
-              <CardHeader>
-                <CardTitle>{category.name}</CardTitle>
-                <CardDescription>{category.description}</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <div className={`grid gap-6 ${
-              viewMode === 'grid' 
-                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
-                : 'grid-cols-1'
-            }`}>
-              {category.tools.map((tool) => (
-                <Card key={tool.name} className="glass-card hover-lift cursor-pointer group">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-1">
-                        <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                          {tool.name}
-                        </CardTitle>
-                        <CardDescription>{tool.category}</CardDescription>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <div className={`w-3 h-3 rounded-full ${getStatusColor(tool.status)}`} />
-                        <span className="text-xs text-muted-foreground">{tool.status}</span>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-sm text-muted-foreground">{tool.description}</p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex space-x-2">
-                        <Button size="sm" className="hover-glow">
-                          <Play className="w-3 h-3 mr-1" />
-                          Launch
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          Info
-                        </Button>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        ⭐
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+          {filteredTools.length === 0 && (
+            <div className="text-center py-12">
+              <Terminal className="h-12 w-12 mx-auto text-muted-foreground opacity-50 mb-4" />
+              <p className="text-muted-foreground">No tools found matching your criteria</p>
             </div>
-          </TabsContent>
-        ))}
+          )}
+        </TabsContent>
       </Tabs>
     </div>
   );
