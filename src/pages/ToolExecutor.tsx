@@ -12,6 +12,15 @@ import { GhidraRunner } from '@/components/tools/GhidraRunner';
 import { HashcatRunner } from '@/components/tools/HashcatRunner';
 import { HydraRunner } from '@/components/tools/HydraRunner';
 import { SetToolkitRunner } from '@/components/tools/SetToolkitRunner';
+import { SherlockRunner } from '@/components/tools/SherlockRunner';
+import { TheHarvesterRunner } from '@/components/tools/TheHarvesterRunner';
+import { NiktoRunner } from '@/components/tools/NiktoRunner';
+import { GobusterRunner } from '@/components/tools/GobusterRunner';
+import { JohnRunner } from '@/components/tools/JohnRunner';
+import { MasscanRunner } from '@/components/tools/MasscanRunner';
+import { OwaspZapRunner } from '@/components/tools/OwaspZapRunner';
+import { BettercapRunner } from '@/components/tools/BettercapRunner';
+import { Radare2Runner } from '@/components/tools/Radare2Runner';
 import { ToolRunner } from '@/components/tools/ToolRunner';
 import { toolsDatabase } from '@/data/tools';
 
@@ -48,6 +57,15 @@ export default function ToolExecutor() {
       case 'hashcat': return <HashcatRunner />;
       case 'hydra': return <HydraRunner />;
       case 'set': return <SetToolkitRunner />;
+      case 'sherlock': return <SherlockRunner />;
+      case 'theharvester': return <TheHarvesterRunner />;
+      case 'nikto': return <NiktoRunner />;
+      case 'gobuster': return <GobusterRunner />;
+      case 'john': return <JohnRunner />;
+      case 'masscan': return <MasscanRunner />;
+      case 'owasp-zap': return <OwaspZapRunner />;
+      case 'bettercap': return <BettercapRunner />;
+      case 'radare2': return <Radare2Runner />;
       default: return <ToolRunner tool={tool} onClose={() => navigate('/tools')} />;
     }
   };
