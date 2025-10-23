@@ -21,6 +21,18 @@ import { MasscanRunner } from '@/components/tools/MasscanRunner';
 import { OwaspZapRunner } from '@/components/tools/OwaspZapRunner';
 import { BettercapRunner } from '@/components/tools/BettercapRunner';
 import { Radare2Runner } from '@/components/tools/Radare2Runner';
+import { ReconNgRunner } from '@/components/tools/ReconNgRunner';
+import { ShodanRunner } from '@/components/tools/ShodanRunner';
+import { NetdiscoverRunner } from '@/components/tools/NetdiscoverRunner';
+import { DirbRunner } from '@/components/tools/DirbRunner';
+import { SearchsploitRunner } from '@/components/tools/SearchsploitRunner';
+import { BeefRunner } from '@/components/tools/BeefRunner';
+import { MedusaRunner } from '@/components/tools/MedusaRunner';
+import { WifiteRunner } from '@/components/tools/WifiteRunner';
+import { ReaverRunner } from '@/components/tools/ReaverRunner';
+import { EttercapRunner } from '@/components/tools/EttercapRunner';
+import { VolatilityRunner } from '@/components/tools/VolatilityRunner';
+import { AutopsyRunner } from '@/components/tools/AutopsyRunner';
 import { ToolRunner } from '@/components/tools/ToolRunner';
 import { toolsDatabase } from '@/data/tools';
 
@@ -66,6 +78,18 @@ export default function ToolExecutor() {
       case 'owasp-zap': return <OwaspZapRunner />;
       case 'bettercap': return <BettercapRunner />;
       case 'radare2': return <Radare2Runner />;
+      case 'recon-ng': return <ReconNgRunner />;
+      case 'shodan-cli': return <ShodanRunner />;
+      case 'netdiscover': return <NetdiscoverRunner />;
+      case 'dirb': return <DirbRunner />;
+      case 'searchsploit': return <SearchsploitRunner />;
+      case 'beef': return <BeefRunner />;
+      case 'medusa': return <MedusaRunner />;
+      case 'wifite': return <WifiteRunner />;
+      case 'reaver': return <ReaverRunner />;
+      case 'ettercap': return <EttercapRunner />;
+      case 'volatility': return <VolatilityRunner />;
+      case 'autopsy': return <AutopsyRunner />;
       default: return <ToolRunner tool={tool} onClose={() => navigate('/tools')} />;
     }
   };
