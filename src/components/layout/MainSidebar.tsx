@@ -3,7 +3,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { 
   Shield, Search, Globe, Wifi, Lock, Terminal, 
   Database, Zap, Brain, Settings, Home, FolderOpen,
-  ChevronRight, ChevronDown, Plus, Bot
+  ChevronRight, ChevronDown, Plus, Bot, Code, Activity, 
+  Network, Key
 } from 'lucide-react';
 import {
   Sidebar,
@@ -25,9 +26,9 @@ const toolCategories = [
     label: 'Overview',
     icon: Home,
     items: [
-      { name: 'Dashboard', path: '/', icon: Home },
+      { name: 'Dashboard', path: '/dashboard', icon: Home },
       { name: 'Projects', path: '/projects', icon: FolderOpen },
-      { name: 'Recent Tools', path: '/recent', icon: Zap }
+      { name: 'Tools Hub', path: '/tools', icon: Terminal }
     ]
   },
   {
@@ -35,10 +36,11 @@ const toolCategories = [
     label: 'OSINT & Intelligence',
     icon: Search,
     items: [
-      { name: 'Domain Analysis', path: '/tools/osint/domains', icon: Globe },
-      { name: 'Social Media', path: '/tools/osint/social', icon: Search },
-      { name: 'Phone Numbers', path: '/tools/osint/phone', icon: Search },
-      { name: 'Geolocation', path: '/tools/osint/geo', icon: Search }
+      { name: 'Sherlock', path: '/tools/sherlock', icon: Search },
+      { name: 'theHarvester', path: '/tools/theharvester', icon: Globe },
+      { name: 'Maltego', path: '/tools/maltego', icon: Database },
+      { name: 'Recon-ng', path: '/tools/recon-ng', icon: Search },
+      { name: 'Shodan CLI', path: '/tools/shodan-cli', icon: Globe }
     ]
   },
   {
@@ -46,10 +48,12 @@ const toolCategories = [
     label: 'Web Hacking',
     icon: Globe,
     items: [
-      { name: 'Burp Suite', path: '/tools/web/burp', icon: Shield },
-      { name: 'SQLMap', path: '/tools/web/sqlmap', icon: Database },
-      { name: 'XSS Hunter', path: '/tools/web/xss', icon: Zap },
-      { name: 'Directory Fuzzing', path: '/tools/web/fuzz', icon: Search }
+      { name: 'Burp Suite', path: '/tools/burp-suite', icon: Shield },
+      { name: 'SQLMap', path: '/tools/sqlmap', icon: Database },
+      { name: 'OWASP ZAP', path: '/tools/owasp-zap', icon: Shield },
+      { name: 'Nikto', path: '/tools/nikto', icon: Search },
+      { name: 'Gobuster', path: '/tools/gobuster', icon: FolderOpen },
+      { name: 'Dirb', path: '/tools/dirb', icon: Search }
     ]
   },
   {
@@ -57,21 +61,62 @@ const toolCategories = [
     label: 'Network & Wireless',
     icon: Wifi,
     items: [
-      { name: 'Nmap Scanner', path: '/tools/network/nmap', icon: Search },
-      { name: 'Aircrack-ng', path: '/tools/wireless/aircrack', icon: Wifi },
-      { name: 'Wireshark', path: '/tools/network/wireshark', icon: Wifi },
-      { name: 'Metasploit', path: '/tools/network/metasploit', icon: Zap }
+      { name: 'Nmap', path: '/tools/nmap', icon: Search },
+      { name: 'Masscan', path: '/tools/masscan', icon: Zap },
+      { name: 'Netdiscover', path: '/tools/netdiscover', icon: Wifi },
+      { name: 'Aircrack-ng', path: '/tools/aircrack-ng', icon: Wifi },
+      { name: 'Wifite', path: '/tools/wifite', icon: Wifi },
+      { name: 'Reaver', path: '/tools/reaver', icon: Lock }
     ]
   },
   {
-    id: 'crypto',
-    label: 'Crypto & Forensics',
+    id: 'exploitation',
+    label: 'Exploitation',
+    icon: Zap,
+    items: [
+      { name: 'Metasploit', path: '/tools/metasploit', icon: Terminal },
+      { name: 'Searchsploit', path: '/tools/searchsploit', icon: Search },
+      { name: 'BeEF', path: '/tools/beef', icon: Globe },
+      { name: 'SET Toolkit', path: '/tools/set', icon: Shield }
+    ]
+  },
+  {
+    id: 'password',
+    label: 'Password Attacks',
     icon: Lock,
     items: [
-      { name: 'Hash Cracking', path: '/tools/crypto/hash', icon: Lock },
-      { name: 'Steganography', path: '/tools/crypto/stego', icon: Lock },
-      { name: 'File Analysis', path: '/tools/forensics/files', icon: Search },
-      { name: 'Memory Dump', path: '/tools/forensics/memory', icon: Brain }
+      { name: 'John the Ripper', path: '/tools/john', icon: Lock },
+      { name: 'Hashcat', path: '/tools/hashcat', icon: Key },
+      { name: 'Hydra', path: '/tools/hydra', icon: Terminal },
+      { name: 'Medusa', path: '/tools/medusa', icon: Lock }
+    ]
+  },
+  {
+    id: 'sniffing',
+    label: 'Sniffing & MITM',
+    icon: Wifi,
+    items: [
+      { name: 'Wireshark', path: '/tools/wireshark', icon: Activity },
+      { name: 'Bettercap', path: '/tools/bettercap', icon: Wifi },
+      { name: 'Ettercap', path: '/tools/ettercap', icon: Network }
+    ]
+  },
+  {
+    id: 'forensics',
+    label: 'Forensics',
+    icon: Brain,
+    items: [
+      { name: 'Volatility', path: '/tools/volatility', icon: Brain },
+      { name: 'Autopsy', path: '/tools/autopsy', icon: Search }
+    ]
+  },
+  {
+    id: 'reverse',
+    label: 'Reverse Engineering',
+    icon: Code,
+    items: [
+      { name: 'Ghidra', path: '/tools/ghidra', icon: Code },
+      { name: 'Radare2', path: '/tools/radare2', icon: Terminal }
     ]
   }
 ];
@@ -94,13 +139,13 @@ export function MainSidebar() {
   const isGroupActive = (items: any[]) => items.some(item => isActive(item.path));
 
   return (
-    <Sidebar className={`transition-all duration-300 ${collapsed ? 'w-16' : 'w-72'} glass-panel border-r border-border/30`}>
+    <Sidebar className="glass-panel border-r border-border/30">
       <SidebarHeader className="p-4 border-b border-border/30">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
             <Shield className="w-6 h-6 text-white" />
           </div>
-          {!collapsed && (
+          {sidebar.state !== 'collapsed' && (
             <div>
               <h1 className="text-xl font-bold text-primary">PhantomSEC</h1>
               <p className="text-xs text-muted-foreground">Hacker Platform</p>
@@ -111,7 +156,7 @@ export function MainSidebar() {
 
       <SidebarContent className="p-4">
         {/* Quick Actions */}
-        {!collapsed && (
+        {sidebar.state !== 'collapsed' && (
           <div className="mb-6 space-y-2">
             <Button className="w-full glass-card hover-glow" size="sm">
               <Plus className="w-4 h-4 mr-2" />
@@ -133,16 +178,16 @@ export function MainSidebar() {
             return (
               <SidebarGroup key={category.id}>
                 <SidebarMenuButton
-                  onClick={() => !collapsed && toggleGroup(category.id)}
+                  onClick={() => sidebar.state !== 'collapsed' && toggleGroup(category.id)}
                   className={`w-full justify-between p-3 rounded-xl transition-all duration-200 ${
                     groupActive ? 'bg-primary/10 text-primary border-primary/30' : 'hover:bg-secondary/50'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
                     <category.icon className="w-5 h-5" />
-                    {!collapsed && <span className="font-medium">{category.label}</span>}
+                    {sidebar.state !== 'collapsed' && <span className="font-medium">{category.label}</span>}
                   </div>
-                  {!collapsed && (
+                  {sidebar.state !== 'collapsed' && (
                     <div className="transition-transform duration-200">
                       {isExpanded ? (
                         <ChevronDown className="w-4 h-4" />
@@ -153,7 +198,7 @@ export function MainSidebar() {
                   )}
                 </SidebarMenuButton>
 
-                {isExpanded && !collapsed && (
+                {isExpanded && sidebar.state !== 'collapsed' && (
                   <SidebarGroupContent className="mt-2 ml-2 space-y-1">
                     <SidebarMenu>
                       {category.items.map((item) => (
@@ -195,7 +240,7 @@ export function MainSidebar() {
                   }`}
                 >
                   <Bot className="w-5 h-5" />
-                  {!collapsed && <span>AI Assistant</span>}
+                  {sidebar.state !== 'collapsed' && <span>AI Assistant</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -210,7 +255,7 @@ export function MainSidebar() {
                   }`}
                 >
                   <Settings className="w-5 h-5" />
-                  {!collapsed && <span>Settings</span>}
+                  {sidebar.state !== 'collapsed' && <span>Settings</span>}
                 </NavLink>
               </SidebarMenuButton>
             </SidebarMenuItem>
